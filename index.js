@@ -2,7 +2,7 @@
 
 // start with the main function then hand the others with  in the order that is needed
 let hercules = {
-  health: 10,
+  health: 20,
   attackPower: 3,
   attacks: [2, 4, 5, -3],
   hasSteak: false
@@ -12,25 +12,23 @@ let hercules = {
 let hydra = {
   health: 20,
   attackPower: 1,
-  attacks:  [2, 3, 5, -1]
+  attacks:  [1, 2, 3, -1]
 }
 
 let lion = {
   health: 25,
   attackPower: 1,
-  attacks: [2, 3, 5, -1]
+  attacks: [1, 2, 3, -1]
 }
 
 let cerberus = {
   health: 25,
   attackPower: 1,
   attacks: [2, 3, 5, -1],
-  steak: false
 }
 
 let cow = {
   health: 5,
-  
 }
 
 function battle_1 (){
@@ -56,7 +54,7 @@ function battle_1 (){
       randNumber = Math.floor(Math.random() * 4)
       enemyattack = hydra.attacks[randNumber];
       enemydamage = hydra.attackPower + enemyattack;
-      alert(`Hydra attack dealing ${enemydamage} in damage` )
+      alert(`Hydra attacks dealing ${enemydamage} in damage` )
       hercules.health = hercules.health - enemydamage;
       turn = 1;
     }
@@ -82,7 +80,7 @@ function battle_2 (){
   let enemydamage = lion.attackPower + enemyattack;
   let turn = 0;
   while (lion.health > 0 && hercules.health > 0 ){
-    console.log(`Hydra health: ${lion.health} Hercules health: ${hercules.health}`);
+    console.log(`Lion's health: ${lion.health} Hercules health: ${hercules.health}`);
     if (turn === 1) { 
       attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1)
 
@@ -95,7 +93,7 @@ function battle_2 (){
       randNumber = Math.floor(Math.random() * 4)
       enemyattack = lion.attacks[randNumber];
       enemydamage = lion.attackPower + enemyattack;
-      alert(`Hydra attack dealing ${enemydamage} in damage` )
+      alert(`Lion attacks dealing ${enemydamage} in damage` );
       hercules.health = hercules.health - enemydamage;
       turn = 1;
     }
@@ -106,13 +104,74 @@ function battle_2 (){
     cowbattle();
   }
   else if (hercules.health <= 0){
-    alert("You are Dead. Game Over")
+    alert("You are Dead. Game Over");
   }
 }
 
 function cowbattle () {
+  alert("Hey there is a cow")
+  let killCow = prompt("Do you kill the cow? (y/n)")
+  if(killCow === 'y') {
+    hercules.hasSteak = true;
+    console.log('You now have steak');
+    alert('You now have steak');
+    battle_3();
+  }else {
+    battle_3();
+  } 
+}
+
+function battle_3 (){
+  alert("Yep that's the enterance to the underword now you are on your own seeya... ")
+  let attackMenu = '';
+  let attackchoice = hercules.attacks[attackMenu];
+  let damage = hercules.attackPower + attackchoice;
+  let randNumber = Math.floor(Math.random() * 4)
+  let enemyattack = cerberus.attacks[randNumber];
+  let enemydamage = cerberus.attackPower + enemyattack;
+  let turn = 0;
+  if(hercules.hasSteak === true) {
+    let choice  = prompt('Give the steak to cerberus? (y/n)')
+    if (choice === 'y') {
+        alert("You gave the steak to cerberus. Now he rolls over and wants belly rubs... congrats you have a pet now.");
+        finalScene();
+        return;
+    } 
+  }
+  while (lion.health > 0 && hercules.health > 0 ){
+    console.log(`Cerberus health: ${cerberus.health} Hercules health: ${hercules.health}`);
+    if (turn === 1) { 
+        attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1)
   
-  
+        attackchoice = hercules.attacks[attackMenu];
+        damage = hercules.attackPower + attackchoice;
+        cerberus.health = cerberus.health - damage;
+        
+        turn = 0;
+    } else { 
+        randNumber = Math.floor(Math.random() * 4)
+        enemyattack = cerberus.attacks[randNumber];
+        enemydamage = cerberus.attackPower + enemyattack;
+        alert(`Cerberus attacks dealing ${enemydamage} in damage` );
+        hercules.health = hercules.health - enemydamage;
+        turn = 1;
+      }
+    }
+    if (cerberus.health <= 0){
+      alert("The Cerberus has been defeated.");
+      hercules.health = 20;
+      finalScene();
+    }
+    else if (hercules.health <= 0){
+      alert("You are Dead. Game Over");
+  }
+}
+
+
+
+
+function finalScene(){
+  alert("You have completed the tasks. Congradulations")
 }
 
 function mainStory () {
@@ -135,9 +194,11 @@ function mainStory () {
 function runGame() {
   let start = prompt("Do you want to play a game? (y/n):")
   if(start = 'y') {
+    hercules.health = 20;
     mainStory();
   } else {
     alert("Goodbye");
   }
 }
 
+runGame();
