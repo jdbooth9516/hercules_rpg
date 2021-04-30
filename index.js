@@ -73,14 +73,14 @@ function battle_1 (){
 }
 
 function battle_2 (){
-  alert("You arrive at the Hydra's lair. you perpare for battle the first attack is your what do you do")
+  alert("After a journey of many miles and a few taverns latter. You find the mythical Nemean Lion... No that is not purring. That is oh crap!")
   let attackMenu = '';
   let attackchoice = hercules.attacks[attackMenu];
   let damage = hercules.attackPower + attackchoice;
   let randNumber = Math.floor(Math.random() * 4)
   let enemyattack = lion.attacks[randNumber];
   let enemydamage = lion.attackPower + enemyattack;
-  let turn = 1;
+  let turn = 0;
   while (lion.health > 0 && hercules.health > 0 ){
     console.log(`Hydra health: ${lion.health} Hercules health: ${hercules.health}`);
     if (turn === 1) { 
@@ -103,13 +103,17 @@ function battle_2 (){
   if (lion.health <= 0){
     alert("The Lion has been defeated.");
     hercules.health = 20;
+    cowbattle();
   }
   else if (hercules.health <= 0){
     alert("You are Dead. Game Over")
   }
 }
 
-
+function cowbattle () {
+  
+  
+}
 
 function mainStory () {
   let userName = prompt('Please enter your name:');
@@ -137,4 +141,3 @@ function runGame() {
   }
 }
 
-battle_1()
