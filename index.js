@@ -2,6 +2,7 @@
 
 // start with the main function then hand the others with  in the order that is needed
 let hercules = {
+  name: 'Hercules',
   health: 20,
   attackPower: 3,
   attacks: [2, 4, 5, -3],
@@ -10,18 +11,21 @@ let hercules = {
 }
 
 let hydra = {
+  name: 'Hydra',
   health: 20,
   attackPower: 1,
   attacks:  [1, 2, 3, -1]
 }
 
 let lion = {
+  name: "Lion",
   health: 25,
   attackPower: 1,
   attacks: [1, 2, 3, -1]
 }
 
 let cerberus = {
+  name: "Cerberus",
   health: 25,
   attackPower: 1,
   attacks: [2, 3, 5, -1],
@@ -31,38 +35,44 @@ let cow = {
   health: 5,
 }
 
-function battle_1 (){
-  alert("You arrive at the Hydra's lair. you perpare for battle the first attack is your what do you do")
+function battleEvent(player, enemy, startTurn) {
   let attackMenu = '';
-  let attackchoice = hercules.attacks[attackMenu];
-  let damage = hercules.attackPower + attackchoice;
+  let attackchoice = player.attacks[attackMenu];
+  let damage = player.attackPower + attackchoice;
   let randNumber = Math.floor(Math.random() * 4)
-  let enemyattack = hydra.attacks[randNumber];
-  let enemydamage = hydra.attackPower + enemyattack;
-  let turn = 1;
-  while (hydra.health > 0 && hercules.health > 0 ){
-    console.log(`Hydra health: ${hydra.health} Hercules health: ${hercules.health}`);
+  let enemyattack = enemy.attacks[randNumber];
+  let enemydamage = enemy.attackPower + enemyattack;
+  let turn = startTurn;
+  let winner = '';
+  while (enemy.health > 0 && player.health > 0 ){
+    console.log(`${enemy} health: ${enemy.health} ${player} health: ${player.health}`);
     if (turn === 1) { 
-      attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1)
+      attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1);
+      if (attackMenu !== 1 || 2 || 3){
+        alert("Please enter a number 1, 2, or 3:")
+        attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1);
+      }
 
-      attackchoice = hercules.attacks[attackMenu];
-      damage = hercules.attackPower + attackchoice;
-      hydra.health = hydra.health - damage;
+      attackchoice = player.attacks[attackMenu];
+      damage = player.attackPower + attackchoice;
+      enemy.health = enemy.health - damage;
+      alert(`You attack dealing ${damage} in damage`)
       
       turn = 0;
     } else { 
       randNumber = Math.floor(Math.random() * 4)
       enemyattack = hydra.attacks[randNumber];
       enemydamage = hydra.attackPower + enemyattack;
-      alert(`Hydra attacks dealing ${enemydamage} in damage` )
+      alert(`${enemy.name} attacks dealing ${enemydamage} in damage` );
       hercules.health = hercules.health - enemydamage;
       turn = 1;
     }
   }
-  if (hydra.health <= 0){
-    alert("The Hydra has been defeated.");
+  if (enemy.health <= 0){
+    alert(`The ${enemy.name} has been defeated.`);
     hercules.health = 20;
-    battle_2()
+    winner = 1;
+    return winner
   }
   else if (hercules.health <= 0){
     alert("You are Dead. Game Over")
@@ -70,50 +80,45 @@ function battle_1 (){
   }
 }
 
-function battle_2 (){
-  alert("After a journey of many miles and a few taverns latter. You find the mythical Nemean Lion... No that is not purring. That is oh crap!")
-  let attackMenu = '';
-  let attackchoice = hercules.attacks[attackMenu];
-  let damage = hercules.attackPower + attackchoice;
-  let randNumber = Math.floor(Math.random() * 4)
-  let enemyattack = lion.attacks[randNumber];
-  let enemydamage = lion.attackPower + enemyattack;
-  let turn = 0;
-  while (lion.health > 0 && hercules.health > 0 ){
-    console.log(`Lion's health: ${lion.health} Hercules health: ${hercules.health}`);
-    if (turn === 1) { 
-      attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1)
-
-      attackchoice = hercules.attacks[attackMenu];
-      damage = hercules.attackPower + attackchoice;
-      lion.health = lion.health - damage;
-      
-      turn = 0;
-    } else { 
-      randNumber = Math.floor(Math.random() * 4)
-      enemyattack = lion.attacks[randNumber];
-      enemydamage = lion.attackPower + enemyattack;
-      alert(`Lion attacks dealing ${enemydamage} in damage` );
-      hercules.health = hercules.health - enemydamage;
-      turn = 1;
-    }
-  }
-  if (lion.health <= 0){
-    alert("The Lion has been defeated.");
-    hercules.health = 20;
-    cowbattle();
-  }
-  else if (hercules.health <= 0){
-    alert("You are Dead. Game Over");
+function battle_1 (){
+  document.body.style.background = "url(maxresdefault.jpg)";
+  document.body.style.backgroundRepeat = 'no-repeat';
+  document.body.style.backgroundSize = 'cover';
+  alert("You arrive at the Hydra's lair. you perpare for battle the first attack is your what do you do")
+  let battle = battleEvent(hercules, hydra, 1);
+  if (battle === 1){
+    battle_2()
   }
 }
+  
+
+
+function battle_2 (){
+  document.body.style.background = "url(eric-combeau-Tw0eeOOzCVs-unsplash.jpg)";
+  document.body.style.backgroundRepeat = 'no-repeat';
+  document.body.style.backgroundSize = '50%';
+  document.body.style.backgroundPosition = 'center';
+  document.body.style.backgroundColor = "#222";
+  alert("After a journey of many miles and a few taverns latter. You find the mythical Nemean Lion... No that is not purring. That is oh crap!")
+  let battle = battleEvent(hercules, lion, 2);
+  if (battle === 1){
+    cowbattle();
+  }
 
 function cowbattle () {
+  document.body.style.background = "url(alaina-mclearnon-P_t9mRLFoRs-unsplash.jpg)";
+  document.body.style.backgroundRepeat = 'no-repeat';
+  document.body.style.backgroundSize = '50%';
+  document.body.style.backgroundPosition = 'center';
+  document.body.style.backgroundColor = "#222";
   alert("Hey there is a cow")
   let killCow = prompt("Do you kill the cow? (y/n)")
   if(killCow === 'y') {
     hercules.hasSteak = true;
     console.log('You now have steak');
+    document.body.style.background = "url(edson-saldana-J88no2vCrTs-unsplash.jpg)";
+  document.body.style.backgroundRepeat = 'no-repeat';
+  document.body.style.backgroundSize = 'cover';
     alert('You now have steak');
     battle_3();
   }else {
@@ -123,13 +128,9 @@ function cowbattle () {
 
 function battle_3 (){
   alert("Yep that's the enterance to the underword now you are on your own seeya... ")
-  let attackMenu = '';
-  let attackchoice = hercules.attacks[attackMenu];
-  let damage = hercules.attackPower + attackchoice;
-  let randNumber = Math.floor(Math.random() * 4)
-  let enemyattack = cerberus.attacks[randNumber];
-  let enemydamage = cerberus.attackPower + enemyattack;
-  let turn = 0;
+  document.body.style.background = "url(0*xnj6VIeKF-fc7QyQ.jpg)";
+  document.body.style.backgroundRepeat = 'no-repeat';
+  document.body.style.backgroundSize = 'cover'; 
   if(hercules.hasSteak === true) {
     let choice  = prompt('Give the steak to cerberus? (y/n)')
     if (choice === 'y') {
@@ -138,32 +139,12 @@ function battle_3 (){
         return;
     } 
   }
-  while (lion.health > 0 && hercules.health > 0 ){
-    console.log(`Cerberus health: ${cerberus.health} Hercules health: ${hercules.health}`);
-    if (turn === 1) { 
-        attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1)
+  let battle = battleEvent(hercules, cerberus, 1);
+  if (battle === 1){
+    finalScene();
+  }
+
   
-        attackchoice = hercules.attacks[attackMenu];
-        damage = hercules.attackPower + attackchoice;
-        cerberus.health = cerberus.health - damage;
-        
-        turn = 0;
-    } else { 
-        randNumber = Math.floor(Math.random() * 4)
-        enemyattack = cerberus.attacks[randNumber];
-        enemydamage = cerberus.attackPower + enemyattack;
-        alert(`Cerberus attacks dealing ${enemydamage} in damage` );
-        hercules.health = hercules.health - enemydamage;
-        turn = 1;
-      }
-    }
-    if (cerberus.health <= 0){
-      alert("The Cerberus has been defeated.");
-      hercules.health = 20;
-      finalScene();
-    }
-    else if (hercules.health <= 0){
-      alert("You are Dead. Game Over");
   }
 }
 
@@ -171,7 +152,11 @@ function battle_3 (){
 
 
 function finalScene(){
+  document.body.style.background = "url(yusuf-dundar-h_sMl3egcOg-unsplash.jpg)";
+  document.body.style.backgroundRepeat = 'no-repeat';
+  document.body.style.backgroundSize = 'cover'; 
   alert("You have completed the tasks. Congradulations")
+  runGame();
 }
 
 function mainStory () {

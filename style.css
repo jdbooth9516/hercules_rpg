@@ -1,0 +1,14 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body { 
+  height: 100vh;
+  background-color: slategrey;
+  color: silver; 
+  background: url(yusuf-dundar-Sm2IjyvrzDk-unsplash.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
