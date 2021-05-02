@@ -45,36 +45,36 @@ function battleEvent(player, enemy, startTurn) {
   let turn = startTurn;
   let winner = '';
   while (enemy.health > 0 && player.health > 0 ){
-    console.log(`${enemy} health: ${enemy.health} ${player} health: ${player.health}`);
+    console.log(`${enemy.name} health: ${enemy.health} ${player.name} health: ${player.health}`);
     if (turn === 1) { 
       attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1);
-      if (attackMenu !== 1 || 2 || 3){
+      if (attackMenu !== 0 && attackMenu !== 1 && attackMenu !== 2){
         alert("Please enter a number 1, 2, or 3:")
         attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1);
       }
 
       attackchoice = player.attacks[attackMenu];
-      damage = player.attackPower + attackchoice;
+      damage = player.attackPower + parseInt(Math.floor(Math.random() * attackchoice));
       enemy.health = enemy.health - damage;
       alert(`You attack dealing ${damage} in damage`)
       
       turn = 0;
     } else { 
       randNumber = Math.floor(Math.random() * 4)
-      enemyattack = hydra.attacks[randNumber];
-      enemydamage = hydra.attackPower + enemyattack;
+      enemyattack = enemy.attacks[randNumber];
+      enemydamage = enemy.attackPower + Math.floor(Math.random() * enemyattack);
       alert(`${enemy.name} attacks dealing ${enemydamage} in damage` );
-      hercules.health = hercules.health - enemydamage;
+      player.health = player.health - enemydamage;
       turn = 1;
     }
   }
   if (enemy.health <= 0){
     alert(`The ${enemy.name} has been defeated.`);
-    hercules.health = 20;
+    player.health = 20;
     winner = 1;
     return winner
   }
-  else if (hercules.health <= 0){
+  else if (player.health <= 0){
     alert("You are Dead. Game Over")
     runGame()
   }
@@ -178,7 +178,7 @@ function mainStory () {
 
 function runGame() {
   let start = prompt("Do you want to play a game? (y/n):")
-  if(start = 'y') {
+  if(start == 'y') {
     hercules.health = 20;
     mainStory();
   } else {
