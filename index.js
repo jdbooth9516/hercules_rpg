@@ -26,14 +26,11 @@ let lion = {
 
 let cerberus = {
   name: "Cerberus",
-  health: 25,
+  health: 30,
   attackPower: 1,
   attacks: [2, 3, 5, -1],
 }
 
-let cow = {
-  health: 5,
-}
 
 function battleEvent(player, enemy, startTurn) {
   let attackMenu = '';
@@ -49,8 +46,10 @@ function battleEvent(player, enemy, startTurn) {
     if (turn === 1) { 
       attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1);
       if (attackMenu !== 0 && attackMenu !== 1 && attackMenu !== 2){
-        alert("Please enter a number 1, 2, or 3:")
+        alert("Please enter a number 1, 2, or 3:");
         attackMenu = parseInt(prompt("Please enter a number \n 1. punch \n 2. kick\n 3. sword") - 1);
+      } else { 
+        attackMenu = 1;
       }
 
       attackchoice = player.attacks[attackMenu];
@@ -92,18 +91,18 @@ function battle_1 (){
 }
   
 
-
 function battle_2 (){
-  document.body.style.background = "url(eric-combeau-Tw0eeOOzCVs-unsplash.jpg)";
+  document.body.style.background = "url(jean-wimmerlin-tmQn_4bmUHs-unsplash.jpg)";
   document.body.style.backgroundRepeat = 'no-repeat';
-  document.body.style.backgroundSize = '50%';
+  document.body.style.backgroundSize = 'cover';
   document.body.style.backgroundPosition = 'center';
   document.body.style.backgroundColor = "#222";
-  alert("After a journey of many miles and a few taverns latter. You find the mythical Nemean Lion... No that is not purring. That is oh crap!")
+  alert("After a journey of many miles and a few taverns latter. You find the mythical Nemean Lion... No that is not purring... That is... OH CRAP!")
   let battle = battleEvent(hercules, lion, 2);
   if (battle === 1){
     cowbattle();
   }
+
 
 function cowbattle () {
   document.body.style.background = "url(alaina-mclearnon-P_t9mRLFoRs-unsplash.jpg)";
@@ -122,19 +121,21 @@ function cowbattle () {
     alert('You now have steak');
     battle_3();
   }else {
+    alert("Ah they looked tasty.")
     battle_3();
   } 
 }
 
+
 function battle_3 (){
-  alert("Yep that's the enterance to the underword now you are on your own seeya... ")
-  document.body.style.background = "url(0*xnj6VIeKF-fc7QyQ.jpg)";
   document.body.style.backgroundRepeat = 'no-repeat';
+  document.body.style.background = "url(0*xnj6VIeKF-fc7QyQ.jpg)";
   document.body.style.backgroundSize = 'cover'; 
+  alert("Yep that's the enterance to the underword... Oh look he is awake... I just remember I have soemthing that I needed to do. so now you are on your own seeya... ")
   if(hercules.hasSteak === true) {
     let choice  = prompt('Give the steak to cerberus? (y/n)')
     if (choice === 'y') {
-        alert("You gave the steak to cerberus. Now he rolls over and wants belly rubs... congrats you have a pet now.");
+        alert("You gave the steak to cerberus. After eating the steak he rolls over and wants belly rubs... congrats you have a pet now.");
         finalScene();
         return;
     } 
@@ -142,9 +143,7 @@ function battle_3 (){
   let battle = battleEvent(hercules, cerberus, 1);
   if (battle === 1){
     finalScene();
-  }
-
-  
+    }  
   }
 }
 
@@ -155,9 +154,10 @@ function finalScene(){
   document.body.style.background = "url(yusuf-dundar-h_sMl3egcOg-unsplash.jpg)";
   document.body.style.backgroundRepeat = 'no-repeat';
   document.body.style.backgroundSize = 'cover'; 
-  alert("You have completed the tasks. Congradulations")
+  alert("You have completed the tasks. Congradulations");
   runGame();
 }
+
 
 function mainStory () {
   let userName = prompt('Please enter your name:');
@@ -166,7 +166,6 @@ function mainStory () {
   alert('2. defeat the nine-headed Lernaean Hydra');
   alert('3. and get yourself a pet... oh by the way the pet is Cerberus.. you know the guardian of the underworld');
   alert('The three headed dog?');
-  alert('Yeah that one');
   alert('Bring steak');
   let begin = prompt("Are you ready to start your journey? (y/n):");
   if(begin == 'y') {
